@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { useForm } from 'react-hook-form'
+import { signIn } from 'next-auth/react'
 
 function SubmitButton() {
   const { pending } = useFormStatus()
@@ -22,6 +23,8 @@ export function AuthForm() {
 
   const handleSubmit = form.handleSubmit(async (data) => {
     console.log(data)
+
+    await signIn('email', { email: data.email })
   });
 
   return (

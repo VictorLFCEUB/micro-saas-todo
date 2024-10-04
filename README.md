@@ -39,8 +39,25 @@ npx shadcn@latest add
 npm i react-hook-form
 ```
 10 Continuar no vídeo https://www.youtube.com/watch?v=Lvxpl0bwYf8 13:17
-
-
+11 Instalar o Auth Beta
+```bash
+npm install next-auth@beta
+```
+12 Configurar o Next Auth utilizando a documentação
+https://authjs.dev/getting-started/installation
+13 Instalar o Prisma 
+```bash
+npm install prisma --dev
+```
+14 Iniciar o Prisma
+```bash
+npx prisma init
+```
+15 Configurar o Prisma
+16 Iniciar a Migrate
+```bash
+npx prisma migrate dev --name init
+```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
