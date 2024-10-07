@@ -1,17 +1,24 @@
 import NextAuth from "next-auth"
-import Nodemailer from "next-auth/providers/nodemailer"
+import Email from "next-auth/providers/email"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { prisma } from "../database"
 
 export const { 
-    handlers, 
+    handlers: { GET, POST }, 
     signIn, 
     signOut, 
     auth 
 } = NextAuth({
+  pages: {
+    signIn: "/auth",
+    signOut: "/auth",
+    error: "/auth",
+    verifyRequest: "/auth",
+    newUser: "/app",
+  },
   adapter: PrismaAdapter(prisma),
   providers: [
-    Nodemailer({
+    Email({
         server: {
             host: process.env.EMAIL_SERVER_HOST,
             port: process.env.EMAIL_SERVER_PORT,

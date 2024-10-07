@@ -1,5 +1,13 @@
-export default function Page() {
+import { auth } from "@/services/auth";
+import { UserInfo } from "./_components/user-info";
+
+export default async function Page() {
+
+  const session = await auth()
+
   return (
-      <h1>Page</h1>
+      <main>
+        <UserInfo user={session?.user} />
+      </main>
   );
 }

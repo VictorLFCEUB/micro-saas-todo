@@ -1,30 +1,31 @@
 'use client'
 
-import { useFormStatus } from 'react-dom'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { useForm } from 'react-hook-form'
 import { signIn } from 'next-auth/react'
-
-function SubmitButton() {
-  const { pending } = useFormStatus()
-
-  return (
-    <Button type="submit" className="w-full" disabled={pending}>
-      {pending ? 'Sending...' : 'Send Magic Link'}
-    </Button>
-  )
-}
+import { toast } from "@/hooks/use-toast"
 
 export function AuthForm() {
 
   const form = useForm()
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    console.log(data)
+    
+    try {
+      await signIn('email', { email: data.email, redirect: false })
+      toast({
+        title: 'Check your email',
+        description: 'We sent a magic link to your email address.',
+      })
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'An error occurred while sending the magic link.',
+      })
+    }
 
-    await signIn('email', { email: data.email })
   });
 
   return (
@@ -54,7 +55,9 @@ export function AuthForm() {
             </div>
           </CardContent>
           <CardFooter>
-            <SubmitButton />
+          <Button type="submit" className="w-full">
+            Send Magic Link
+          </Button>
           </CardFooter>
         </form>
       </Card>
