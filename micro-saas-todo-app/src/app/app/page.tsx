@@ -8,6 +8,9 @@ export default async function Page() {
   return (
       <main>
         <UserInfo user={session?.user} />
+        <div>
+          Testando a página
+        </div>
       </main>
   );
 }
